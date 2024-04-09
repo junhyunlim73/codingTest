@@ -35,6 +35,7 @@ public class Main {
         for(int i : list){
             System.out.println(i);
         }
+        br.close();
     }
     private static int BFS(int i, int j){
         Queue<int[]> queue = new LinkedList<>();
