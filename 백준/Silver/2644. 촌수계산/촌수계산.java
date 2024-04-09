@@ -38,6 +38,7 @@ public class Main {
         visited[r] = true;
         if(r == y){
             cnt = num;
+            return;
         }
         for(int i : graph.get(r)){
             if(!visited[i]){
