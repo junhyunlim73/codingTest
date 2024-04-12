@@ -5,29 +5,24 @@ import java.util.StringTokenizer;
 
 public class Main {
     static int N, K;
-    static int i, j;
-    static int max;
+    static int acc, max;
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     public static void main(String[] args) throws IOException {
         StringTokenizer st = new StringTokenizer(br.readLine());
         N = Integer.parseInt(st.nextToken());
         K = Integer.parseInt(st.nextToken());
-        int[] arr = new int[N];
-        int[] S = new int[N];
+        int[] temp = new int[N+1];
         st = new StringTokenizer(br.readLine());
-        arr[0] = Integer.parseInt(st.nextToken());
-        S[0] = arr[0];
-        for(int m = 1; m < N; m++){
-            arr[m] = Integer.parseInt(st.nextToken());
-            S[m] = S[m-1] + arr[m];
+        for(int i = 1; i < N + 1; i++){
+            temp[i] = Integer.parseInt(st.nextToken());
         }
-        i = 1;
-        j = K;
-        max = S[j-1];
-        while(j < N){
-            max = Math.max(max, S[j] - S[i-1]);
-            i++;
-            j++;
+        for(int i = 1; i < K + 1; i++){
+            acc += temp[i];
+        }
+        max = acc;
+        for(int i = 1; i < N - K + 1; i++){
+            acc = acc - temp[i] + temp[i+K];
+            max = Math.max(acc, max);
         }
         System.out.println(max);
         br.close();
