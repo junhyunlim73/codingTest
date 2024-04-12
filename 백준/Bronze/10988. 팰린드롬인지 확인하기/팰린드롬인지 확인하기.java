@@ -5,7 +5,7 @@ import java.io.InputStreamReader;
 public class Main {
     static int i, j;
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    static boolean flag = false;
+    static int answer = 1;
     public static void main(String[] args) throws IOException {
         String[] str = br.readLine().split("");
         i = 0;
@@ -15,11 +15,11 @@ public class Main {
                 i++;
                 j--;
             }else{
-                flag = true;
+                answer = 0;
                 break;
             }
         }
-        System.out.println(!flag ? 1 : 0);
+        System.out.println(answer);
         br.close();
     }
 }
