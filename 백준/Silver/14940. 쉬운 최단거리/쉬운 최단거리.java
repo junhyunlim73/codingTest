@@ -13,10 +13,10 @@ public class Main {
     static int[] dr = {0,0,-1,1};
     static int r, c;
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    
     public static void main(String[] args) throws IOException {
         StringTokenizer st = new StringTokenizer(br.readLine());
         StringBuilder sb = new StringBuilder();
-        boolean isGo = false;
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
         map = new int[n][m];
@@ -53,23 +53,15 @@ public class Main {
 
         for(int i = 0; i < n; i++){
             for(int j = 0; j < m; j++){
-                if(map[i][j] == 1){
-                    isGo = false;
-                    for(int k = 0; k < 4; k++){
-                        if((i == c + dc[k]) && (j == r + dr[k])){
-                            sb.append(1 + " ");
-                            isGo = true;
-                            break;
-                        }
-                    }
-                    if(!isGo)
-                        sb.append("-1 ");
+                if(map[i][j] == 1 && visited[i][j] == 0){
+                    sb.append("-1 ");
                 }else{
                     sb.append(map[i][j] + " ");
                 }
             }
             sb.append("\n");
         }
+
         System.out.println(sb.toString());
         br.close();
     }
