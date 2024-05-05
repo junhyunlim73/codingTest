@@ -31,7 +31,7 @@ public class Main {
                 sel[depth] = i;
 
                 for(int j = 0; j < depth; j++) {
-                    if( ((i - sel[j]) != 0) && (Math.abs(depth - j) == Math.abs(i - sel[j]))){
+                    if(Math.abs(depth - j) == Math.abs(i - sel[j])){
                         flag = false;
                         break;
                     }
