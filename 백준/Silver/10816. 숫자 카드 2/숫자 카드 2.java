@@ -1,29 +1,36 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 
 public class Main {
+    static int N, M;
+    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        int n = Integer.parseInt(br.readLine());
+        N = Integer.parseInt(br.readLine());
         HashMap<Long, Integer> map = new HashMap<>();
         StringTokenizer st = new StringTokenizer(br.readLine());
-        for(int i = 0; i < n; i++){
-            long num = Long.parseLong(st.nextToken());
-            map.put(num, map.getOrDefault(num, 0)+1);
+        StringBuilder sb = new StringBuilder();
+
+        for(int i = 0; i < N; i++){
+            Long num = Long.parseLong(st.nextToken());
+            map.put(num, map.getOrDefault(num, 0) + 1);
         }
-        int m = Integer.parseInt(br.readLine());
+
+        M = Integer.parseInt(br.readLine());
         st = new StringTokenizer(br.readLine());
-        for(int i = 0; i < m; i++){
-            long num = Long.parseLong(st.nextToken());
-            if(map.get(num) != null)
-                bw.write(map.get(num) + " ");
-            else
-                bw.write("0" + " ");
+        for(int i = 0; i < M; i++){
+            Long num = Long.parseLong(st.nextToken());
+            if(map.containsKey(num)){
+                sb.append(map.get(num) + " ");
+            }else
+                sb.append("0 ");
         }
-        bw.flush();
-        bw.close();
+
+        System.out.println(sb.toString());
         br.close();
+
     }
 }
