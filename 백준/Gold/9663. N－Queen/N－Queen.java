@@ -3,10 +3,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
-    static int N, cnt;
+    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    static long cnt = 0;
+    static int N;
     static boolean[] visited;
     static int[] sel;
-    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
     public static void main(String[] args) throws IOException {
         N = Integer.parseInt(br.readLine());
@@ -17,34 +18,39 @@ public class Main {
         br.close();
     }
 
-    static void perm(int depth) {
-        if(depth == N) {
+    private static void perm(int depth){
+        if(depth == N){
             cnt++;
             return;
         }
 
-        for(int i = 0; i < N; i++) {
-            if(!visited[i]) {
-                boolean flag = true;
-
-                visited[i] = true;
+        for(int i = 0; i < N; i++){
+            if(depth == 0 && !visited[i]){
                 sel[depth] = i;
+                visited[i] = true;
+                perm(depth+1);
+                visited[i] = false;
+            }
 
-                for(int j = 0; j < depth; j++) {
-                    if(Math.abs(depth - j) == Math.abs(i - sel[j])){
-                        flag = false;
+            else if(depth != 0 && !visited[i]){
+                boolean isOk = false;
+
+                for(int j = 0; j < depth; j++){
+                    int x = Math.abs(sel[j] - i);
+                    int y = depth - j;
+                    if(x == y){
+                        isOk = true;
                         break;
                     }
                 }
-
-                if(flag) {
-                    perm(depth + 1);
+                if(!isOk){
+                    sel[depth] = i;
+                    visited[i] = true;
+                    perm(depth+1);
+                    visited[i] = false;
                 }
-
-                visited[i] = false;
             }
         }
 
     }
-
 }
