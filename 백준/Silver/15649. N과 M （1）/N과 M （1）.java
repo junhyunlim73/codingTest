@@ -5,35 +5,39 @@ import java.util.StringTokenizer;
 
 public class Main {
     static int N, M;
-    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     static int[] sel;
-    static int[] checked;
+    static boolean[] checked;
+    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    static StringBuilder sb = new StringBuilder();
+
     public static void main(String[] args) throws IOException {
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        N = Integer.parseInt(st.nextToken());
-        M = Integer.parseInt(st.nextToken());
-        sel = new int[M];
-        checked = new int[N];
-        perm(0);
-        br.close();
+          StringTokenizer st = new StringTokenizer(br.readLine());
+          N = Integer.parseInt(st.nextToken());
+          M = Integer.parseInt(st.nextToken());
+
+          sel = new int[M];
+          checked = new boolean[N+1];
+
+          perm(0);
+          System.out.println(sb);
     }
-    static void perm(int depth){
+
+    private static void perm(int depth){
         if(depth == M){
             for(int num : sel){
-                System.out.print(num + " ");
+                sb.append(num + " ");
             }
-            System.out.println();
+            sb.append("\n");
             return;
         }
 
-        for(int i = 0; i < N; i++){
-            if(checked[i] == 0){
-                checked[i] = 1;
-                sel[depth] = i+1;
-                perm(depth + 1);
-                checked[i] = 0;
+        for(int i = 1; i <= N; i++){
+            if(!checked[i]){
+                sel[depth] = i;
+                checked[i] = true;
+                perm(depth+1);
+                checked[i] = false;
             }
         }
-
     }
 }
