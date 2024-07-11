@@ -1,69 +1,66 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayDeque;
-import java.util.Queue;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
-    static int T;
-    static int N, M, K;
-    static int X, Y;
-    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    static boolean visited[][];
-    static int arr[][];
-    static int[] dx = {1,-1,0,0};
-    static int[] dy = {0,0,1,-1};
-    static StringBuilder sb = new StringBuilder();
-    
+    static int T, N, M, K;
+    static int[][] adj;
+    static boolean[][] visited;
+    static int[] dc = {-1, 1, 0, 0};
+    static int[] dr = {0, 0, -1, 1};
+
     public static void main(String[] args) throws IOException {
-        T  = Integer.parseInt(br.readLine());
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+        T = Integer.parseInt(br.readLine());
+
         for(int i = 0; i < T; i++){
-            StringTokenizer st = new StringTokenizer(br.readLine());
             int cnt = 0;
+            StringTokenizer st = new StringTokenizer(br.readLine());
             N = Integer.parseInt(st.nextToken());
             M = Integer.parseInt(st.nextToken());
             K = Integer.parseInt(st.nextToken());
-            visited = new boolean[M][N];
-            arr = new int[M][N];
+
+            adj = new int[N][M];
+            visited = new boolean[N][M];
 
             for(int j = 0; j < K; j++){
                 st = new StringTokenizer(br.readLine());
-                X = Integer.parseInt(st.nextToken());
-                Y = Integer.parseInt(st.nextToken());
-                arr[Y][X] = 1;
+                int X = Integer.parseInt(st.nextToken());
+                int Y = Integer.parseInt(st.nextToken());
+                adj[X][Y] = 1;
             }
-            Queue<int[]> queue = new ArrayDeque<>();
-            for(int j = 0; j < M; j++){
-                for(int k = 0; k < N; k++){
-                    if(arr[j][k] == 1){
-                        cnt++;
-                        queue.add(new int[] {j, k});
+
+            for(int j = 0; j < N; j++){
+                for(int k = 0; k < M; k++){
+                    if(adj[j][k] == 1 && !visited[j][k]){
+                        Queue<int[]> q = new LinkedList<>();
+                        q.add(new int[]{j, k});
                         visited[j][k] = true;
-                        arr[j][k] = 2;
-                        while(!queue.isEmpty()){
-                            int[] cur = queue.poll();
-                            int x = cur[0];
-                            int y = cur[1];
-                            arr[x][y] = 2;
+                        cnt++;
+
+                        while(!q.isEmpty()){
+                            int[] now = q.poll();
 
                             for(int m = 0; m < 4; m++){
-                                int nx = x + dx[m];
-                                int ny = y + dy[m];
+                                int nc = now[0] + dc[m];
+                                int nr = now[1] + dr[m];
 
-                                if(nx < 0 || ny < 0 || nx >= M || ny >= N ||  arr[nx][ny] != 1 || visited[nx][ny])
+                                if(nc < 0 || nc >= N || nr < 0 || nr >= M || adj[nc][nr] == 0 || visited[nc][nr])
                                     continue;
 
-                                queue.add(new int[] {nx, ny});
-                                visited[nx][ny] = true;
+                                q.add(new int[]{nc, nr});
+                                visited[nc][nr] = true;
                             }
                         }
                     }
                 }
             }
-            sb.append(cnt + "\n");
+            
+            sb.append(cnt).append("\n");
         }
-        System.out.println(sb.toString());
-        br.close();
+
+        System.out.println(sb);
     }
 }
