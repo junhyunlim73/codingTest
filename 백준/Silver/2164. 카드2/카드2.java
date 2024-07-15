@@ -18,15 +18,9 @@ public class Main {
 
         while(q.size() != 1) {
             q.poll();
-
-            if(q.size() == 1) {
-                break;
-            }
-
-            int x = q.poll();
-            q.add(x);
+            q.add(q.poll());
         }
-        
+
         System.out.println(q.poll());
         br.close();
     }
