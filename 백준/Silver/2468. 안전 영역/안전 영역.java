@@ -11,7 +11,6 @@ public class Main {
     static boolean[][] visited;
     static int[] dr = {-1, 1, 0, 0};
     static int[] dc = {0, 0, -1, 1};
-    static int min = Integer.MAX_VALUE;
     static int max = Integer.MIN_VALUE;
     static int area = 1;
 
@@ -24,7 +23,6 @@ public class Main {
             StringTokenizer st = new StringTokenizer(br.readLine());
             for(int j = 0; j < N; j++){
                 adj[i][j] = Integer.parseInt(st.nextToken());
-                min = Math.min(min, adj[i][j]);
                 max = Math.max(max, adj[i][j]);
             }
         }
@@ -61,13 +59,10 @@ public class Main {
                 }
             }
 
-            if(area < cnt){
-                area = cnt;
-            }
-
+            area = Math.max(area, cnt);
         }
 
         System.out.println(area);
-
+        br.close();
     }
 }
