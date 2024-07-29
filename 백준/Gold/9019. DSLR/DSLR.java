@@ -26,6 +26,9 @@ public class Main {
             while (!q.isEmpty()){
                 Commend now = q.poll();
 
+                if(now.idx == end)
+                    break;
+
                 int d = (now.idx * 2) % 10000;
                 if(arr[d].isEmpty()){
                     arr[d] = now.com + "D";
@@ -54,7 +57,7 @@ public class Main {
             sb.append(arr[end]).append("\n");
         }
 
-        System.out.println(sb);
+        System.out.print(sb);
     }
 
     static class Commend{
