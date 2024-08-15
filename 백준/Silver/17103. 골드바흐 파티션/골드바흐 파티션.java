@@ -13,6 +13,10 @@ public class Main {
 
         StringBuilder sb = new StringBuilder();
 
+        for (int i = 2; i < 1000001; i++) {
+            prime[i] = isPrime(i);
+        }
+
         for(int i = 0; i < T; i++) {
             int cnt = 0;
             int num = Integer.parseInt(br.readLine());
@@ -21,7 +25,7 @@ public class Main {
                 cnt = 1;
             }else{
                 for(int j = 3; j <= (num / 2); j += 2){
-                    if(isPrime(j) && isPrime(num - j)){
+                    if(prime[j] && prime[num - j]){
                         cnt++;
                     }
                 }
@@ -34,15 +38,12 @@ public class Main {
     }
 
     private static boolean isPrime(int n) {
-        if(prime[n])
-            return true;
-
         for(int i = 2; i <= Math.sqrt(n); i++) {
             if(n % i == 0) {
                 return false;
             }
         }
-        prime[n] = true;
+
         return true;
     }
 }
