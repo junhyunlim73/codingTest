@@ -23,33 +23,17 @@ public class Main {
         for(int i = 1; i < N + 1; i++) {
             String[] line = br.readLine().split("");
             for(int j = 1; j < M + 1; j++) {
-                if(i % 2 == 0){
-                    if(j % 2 == 0){
-                       if(line[j-1].equals("B")){
-                           prefix[i][j] = prefix[i-1][j] + prefix[i][j-1] - prefix[i-1][j-1];
-                       }else{
-                           prefix[i][j] = prefix[i-1][j] + prefix[i][j-1] - prefix[i-1][j-1] + 1;
-                       }
+                if((i + j) % 2 == 0){
+                    if(line[j-1].equals("B")){
+                        prefix[i][j] = prefix[i-1][j] + prefix[i][j-1] - prefix[i-1][j-1];
                     }else{
-                        if(line[j-1].equals("W")){
-                            prefix[i][j] = prefix[i-1][j] + prefix[i][j-1] - prefix[i-1][j-1];
-                        }else{
-                            prefix[i][j] = prefix[i-1][j] + prefix[i][j-1] - prefix[i-1][j-1] + 1;
-                        }
+                        prefix[i][j] = prefix[i-1][j] + prefix[i][j-1] - prefix[i-1][j-1] + 1;
                     }
-                }else{
-                    if(j % 2 == 0){
-                        if(line[j-1].equals("W")){
-                            prefix[i][j] = prefix[i-1][j] + prefix[i][j-1] - prefix[i-1][j-1];
-                        }else{
-                            prefix[i][j] = prefix[i-1][j] + prefix[i][j-1] - prefix[i-1][j-1] + 1;
-                        }
+                }else {
+                    if(line[j-1].equals("W")){
+                        prefix[i][j] = prefix[i-1][j] + prefix[i][j-1] - prefix[i-1][j-1];
                     }else{
-                        if(line[j-1].equals("B")){
-                            prefix[i][j] = prefix[i-1][j] + prefix[i][j-1] - prefix[i-1][j-1];
-                        }else{
-                            prefix[i][j] = prefix[i-1][j] + prefix[i][j-1] - prefix[i-1][j-1] + 1;
-                        }
+                        prefix[i][j] = prefix[i-1][j] + prefix[i][j-1] - prefix[i-1][j-1] + 1;
                     }
                 }
             }
