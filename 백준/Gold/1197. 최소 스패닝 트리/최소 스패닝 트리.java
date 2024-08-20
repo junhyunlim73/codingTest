@@ -1,77 +1,84 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 public class Main {
     static int V, E;
-    static ArrayList<Edge>[] adj;
-    static boolean[] visited;
-    static int[] dist;
-    static long total = 0;
+    static PriorityQueue<Edge> pq;
+    static int[] parents;
+    static int result;
+    static int cnt = 0;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
+
         V = Integer.parseInt(st.nextToken());
         E = Integer.parseInt(st.nextToken());
-        adj = new ArrayList[V+1];
-        visited = new boolean[V+1];
-        dist = new int[V+1];
 
-        for(int i = 1; i <= V; i++){
-            adj[i] = new ArrayList<>();
+        parents = new int[V+1];
+        pq = new PriorityQueue<Edge>();
+
+        for(int i = 1 ; i < V + 1; i++){
+            parents[i] = i;
         }
 
         for(int i = 0; i < E; i++){
             st = new StringTokenizer(br.readLine());
-            int a = Integer.parseInt(st.nextToken());
-            int b = Integer.parseInt(st.nextToken());
-            int c = Integer.parseInt(st.nextToken());
-            adj[a].add(new Edge(b, c));
-            adj[b].add(new Edge(a, c));
+            int start = Integer.parseInt(st.nextToken());
+            int end = Integer.parseInt(st.nextToken());
+            int weight = Integer.parseInt(st.nextToken());
+            pq.add(new Edge(start, end, weight));
         }
 
-        prim(1);
-        System.out.println(total);
+        while(!pq.isEmpty()){
+            Edge e = pq.poll();
+            int startRoot = Find(e.start);
+            int endRoot = Find(e.end);
+
+            if(startRoot != endRoot){
+                union(startRoot, endRoot);
+                result += e.weight;
+                cnt++;
+            }
+
+            if(cnt == V - 1)
+                break;
+        }
+
+        System.out.println(result);
         br.close();
     }
 
-    private static void prim(int start){
-        PriorityQueue<Edge> pq = new PriorityQueue<>();
-        pq.add(new Edge(start, 0));
+    static int Find(int a){
+        if(parents[a] == a)
+            return a;
+        return parents[a] = Find(parents[a]);
+    }
 
-        while(!pq.isEmpty()){
-            Edge edge = pq.poll();
+    static private void union(int a, int b){
+        a = Find(a);
+        b = Find(b);
 
-            if(visited[edge.idx]) continue;
+        if(a < b)
+            parents[b] = a;
+        else
+            parents[a] = b;
+    }
 
-            visited[edge.idx] = true;
-            total += edge.weight;
+    static class Edge implements Comparable<Edge> {
+        int start, end, weight;
 
-            for(Edge e : adj[edge.idx]){
-                if(!visited[e.idx])
-                    pq.add(e);
-            }
-
+        public Edge(int start, int end, int weight) {
+            this.start = start;
+            this.end = end;
+            this.weight = weight;
         }
 
+        public int compareTo(Edge o) {
+            return this.weight - o.weight;
+        }
     }
-}
-
-class Edge implements Comparable<Edge>{
-    int idx;
-    int weight;
-
-    public Edge(int idx, int weight){
-        this.idx = idx;
-        this.weight = weight;
-    }
-
-    public int compareTo(Edge o){
-        return Integer.compare(this.weight, o.weight);
-    }
-
 }
