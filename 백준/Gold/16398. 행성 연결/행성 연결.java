@@ -22,11 +22,11 @@ public class Main {
             parents[i] = i;
             for(int j = 0; j < N; j++){
                 int weight = Integer.parseInt(st.nextToken());
-                if(i == j)
+                if(weight == 0)
                     continue;
-                else{
+
+                if(i < j)
                     minHeap.add(new Edge(i, j, weight));
-                }
             }
         }
 
@@ -77,8 +77,6 @@ public class Main {
         }
 
         public int compareTo(Edge o) {
-            if(this.weight == o.weight)
-                return this.start - o.start;
             return weight - o.weight;
         }
     }
