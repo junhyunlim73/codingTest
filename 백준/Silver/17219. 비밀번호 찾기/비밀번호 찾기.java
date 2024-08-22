@@ -1,30 +1,33 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 
 public class Main {
-    static int n, m;
-    static HashMap<String, String> map;
-    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    static int N, M;
 
     public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        StringBuilder sb = new StringBuilder();
-        n = Integer.parseInt(st.nextToken());
-        m = Integer.parseInt(st.nextToken());
-        map = new HashMap<>();
 
-        for(int i = 0; i < n; i++){
-            st = new StringTokenizer(br.readLine());
-            map.put(st.nextToken(), st.nextToken());
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+
+        HashMap<String, String> map = new HashMap<>();
+
+        for(int i = 0; i < N; i++){
+            String[] temps = br.readLine().split(" ");
+            map.put(temps[0], temps[1]);
         }
 
-        for(int i = 0; i < m; i++){
-            sb.append(map.get(br.readLine()) + "\n");
+        for(int i = 0; i < M; i++){
+            String key = br.readLine();
+            bw.write(map.get(key) + " \n");
         }
 
-        System.out.println(sb);
+        bw.flush();
+        bw.close();
+        br.close();
     }
+
 }
