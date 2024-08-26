@@ -4,32 +4,33 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-    static int N;
-    static long M;
-    static long[] arr;
-    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    static int N, M;
+    static int[] branch;
+    static int start, end, mid;
 
     public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
+
         N = Integer.parseInt(st.nextToken());
-        M = Long.parseLong(st.nextToken());
-        arr = new long[N];
+        M = Integer.parseInt(st.nextToken());
+        branch = new int[N];
+
         st = new StringTokenizer(br.readLine());
-        long end = 0;
-        long start = 0;
 
         for(int i = 0; i < N; i++){
-            arr[i] = Long.parseLong(st.nextToken());
-            end = Math.max(end, arr[i]);
+            branch[i] = Integer.parseInt(st.nextToken());
+            end = Math.max(end, branch[i]);
         }
 
         while(start <= end){
-            long mid = (start + end) / 2;
+            mid = (start + end) / 2;
             long sum = 0;
 
-            for(long num : arr){
-                if(num >= mid)
-                    sum += num - mid;
+            for(int i = 0; i < N; i++){
+                long num = branch[i] - mid;
+                if(num > 0)
+                    sum += num;
             }
 
             if(sum < M){
@@ -37,9 +38,11 @@ public class Main {
             }else{
                 start = mid + 1;
             }
+
         }
 
         System.out.println(start - 1);
         br.close();
     }
+
 }
