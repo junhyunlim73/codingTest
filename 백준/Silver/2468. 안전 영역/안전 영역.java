@@ -7,62 +7,66 @@ import java.util.StringTokenizer;
 
 public class Main {
     static int N;
-    static int[][] adj;
+    static int[][] board;
     static boolean[][] visited;
+    static int area = 1;
+    static int max = 0;
     static int[] dr = {-1, 1, 0, 0};
     static int[] dc = {0, 0, -1, 1};
-    static int max = Integer.MIN_VALUE;
-    static int area = 1;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         N = Integer.parseInt(br.readLine());
-        adj = new int[N][N];
+        board = new int[N][N];
 
         for(int i = 0; i < N; i++){
             StringTokenizer st = new StringTokenizer(br.readLine());
             for(int j = 0; j < N; j++){
-                adj[i][j] = Integer.parseInt(st.nextToken());
-                max = Math.max(max, adj[i][j]);
+                board[i][j] = Integer.parseInt(st.nextToken());
+                max = Math.max(max, board[i][j]);
             }
         }
 
-        for(int i = 0; i <= max; i++){
+        for(int i = 1; i < max + 1; i++){
             int cnt = 0;
             visited = new boolean[N][N];
 
             for(int j = 0; j < N; j++){
                 for(int k = 0; k < N; k++){
-                    if(adj[j][k] > i && !visited[j][k]){
+                    if(board[j][k] > i && !visited[j][k]){
                         Queue<int[]> q = new LinkedList<>();
                         q.add(new int[]{j, k});
-                        cnt++;
                         visited[j][k] = true;
+                        cnt++;
 
                         while(!q.isEmpty()){
-                           int[] now = q.poll();
+                            int[] now = q.poll();
+                            int row = now[0];
+                            int col = now[1];
 
-                           for(int m = 0; m < 4; m++){
-                               int nr = now[0] + dr[m];
-                               int nc = now[1] + dc[m];
+                            for(int m = 0; m < 4; m++){
+                                int nr = row + dr[m];
+                                int nc = col + dc[m];
 
-                               if(nr < 0 || nc < 0 || nr >= N || nc >= N || visited[nr][nc] || adj[nr][nc] <= i)
-                                   continue;
+                                if(nr < 0 || nr >= N || nc < 0 || nc >= N)
+                                    continue;
 
-                               q.add(new int[]{nr, nc});
-                               visited[nr][nc] = true;
-                           }
+                                if(board[nr][nc] > i && !visited[nr][nc]){
+                                    visited[nr][nc] = true;
+                                    q.add(new int[]{nr, nc});
+                                }
+                            }
 
                         }
 
                     }
                 }
             }
-
             area = Math.max(area, cnt);
         }
 
         System.out.println(area);
         br.close();
     }
+
 }
