@@ -7,19 +7,18 @@ import java.util.StringTokenizer;
 
 public class Main {
     static int N, M;
-    static ArrayList<Node>[] adj;
+    static ArrayList<Edge>[] adj;
     static boolean[] visited;
-    static int total;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         N = Integer.parseInt(br.readLine());
         M = Integer.parseInt(br.readLine());
 
-        visited = new boolean[N + 1];
         adj = new ArrayList[N + 1];
+        visited = new boolean[N + 1];
 
-        for(int i = 1; i <= N; i++){
+        for(int i = 1; i < N + 1; i++){
             adj[i] = new ArrayList<>();
         }
 
@@ -28,48 +27,49 @@ public class Main {
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
             int c = Integer.parseInt(st.nextToken());
-            adj[a].add(new Node(b, c));
-            adj[b].add(new Node(a, c));
+            adj[a].add(new Edge(b, c));
+            adj[b].add(new Edge(a, c));
         }
 
-        prim(1);
-        System.out.println(total);
+        System.out.println(prim(1));
+        br.close();
     }
 
-    private static void prim(int start) {
-        PriorityQueue<Node> pq = new PriorityQueue<>();
-        pq.add(new Node(start, 0));
-
+    private static int prim(int start){
+        int mst = 0;
+        PriorityQueue<Edge> pq = new PriorityQueue<>();
+        pq.add(new Edge(start, 0));
 
         while(!pq.isEmpty()){
-            Node node = pq.poll();
+            Edge e = pq.poll();
 
-            if(visited[node.idx]) continue;
+            if(visited[e.v])
+                continue;
 
-            visited[node.idx] = true;
-            total += node.weight;
+            visited[e.v] = true;
+            mst += e.w;
 
-            for(Node n : adj[node.idx]){
-                if(!visited[n.idx])
-                    pq.add(new Node(n.idx, n.weight));
+            for(Edge next : adj[e.v]){
+                if(!visited[next.v]){
+                    pq.add(next);
+                }
             }
-
         }
 
+        return mst;
     }
-}
+    
+    static class Edge implements Comparable<Edge> {
+        int v, w;
 
-class Node implements Comparable<Node>{
-    int idx;
-    int weight;
+        public Edge(int v, int w) {
+            this.v = v;
+            this.w = w;
+        }
 
-    public Node(int idx, int weight) {
-        this.idx = idx;
-        this.weight = weight;
-    }
-
-    public int compareTo(Node o) {
-        return this.weight - o.weight;
+        public int compareTo(Edge o) {
+            return w - o.w;
+        }
     }
 
 }
