@@ -3,25 +3,27 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int N = Integer.parseInt(br.readLine());
-        int min = 5000;
-        if(N < 5){
-            if(N % 3 == 0)
-                min = 1;
-            else
-                min = -1;
-        }else{
-            int num = N / 5;
-            for(int i = num; i >=0; i--){
-                int sugar = N - 5*i;
-                if(sugar % 3 == 0){
-                    min = Math.min(min, i + (sugar / 3));
-                }
-            }
+        int n = Integer.parseInt(br.readLine());
+
+        if(n < 3){
+            System.out.println(-1);
+            return;
         }
-        System.out.println(min != 5000 ? min : -1);
+
+        if(n == 4 || n == 7){ // n이 4와 7일 경우
+            System.out.println(-1);
+        }else if(n % 5 == 1 || n % 5 == 3){ // 나머지가 1 또는 3일 경우
+            System.out.println((n / 5) + 1);
+        }else if(n % 5 == 2 || n % 5 == 4){ // 나머지가 2 또는 4일 경우
+            System.out.println((n / 5) + 2);
+        }else if(n % 5 == 0){ // 나머지가 0일 경우
+            System.out.println((n / 5));
+        }
+
         br.close();
     }
+
 }
