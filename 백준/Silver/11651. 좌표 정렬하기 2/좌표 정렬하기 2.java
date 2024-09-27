@@ -1,32 +1,45 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.Comparator;
+import java.util.*;
 
 public class Main {
     static int N;
-    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    static int[][] arr;
+    static ArrayList<Node> list;
+
     public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         N = Integer.parseInt(br.readLine());
-        arr = new int[N][2];
-        for(int i = 0; i < N; i++){
-            String[] nums = br.readLine().split(" ");
-            arr[i][0] = Integer.parseInt(nums[0]);
-            arr[i][1] = Integer.parseInt(nums[1]);
+
+        list = new ArrayList<Node>();
+
+        for (int i = 0; i < N; i++) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            int a = Integer.parseInt(st.nextToken());
+            int b = Integer.parseInt(st.nextToken());
+            list.add(new Node(a, b));
         }
-        Arrays.sort(arr, new Comparator<int[]>() {
-            @Override
-            public int compare(int[] o1, int[] o2) {
-                if(o1[1] == o2[1])
-                    return o1[0] - o2[0];
-                return o1[1] - o2[1];
-            }
-        });
-        for(int[] num : arr){
-            System.out.println(num[0] + " " + num[1]);
+
+        Collections.sort(list);
+
+        for(int i = 0; i < N; i++) {
+            System.out.println(list.get(i).x + " " + list.get(i).y);
         }
         br.close();
+    }
+
+    static class Node implements Comparable<Node> {
+        int x, y;
+
+        public Node(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        public int compareTo(Node o) {
+            if(this.y == o.y)
+                return this.x - o.x;
+            return this.y - o.y;
+        }
     }
 }
