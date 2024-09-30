@@ -9,6 +9,7 @@ public class Main {
     static int[] dr = {-1, 1, 0, 0};
     static int[] dc = {0, 0, -1, 1};
     static int max = 1;
+    static boolean[] visited;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -18,6 +19,7 @@ public class Main {
         M = Integer.parseInt(st.nextToken());
 
         board = new char[N][M];
+        visited = new boolean[26];
 
         for (int i = 0; i < N; i++) {
             char[] line = br.readLine().toCharArray();
@@ -26,13 +28,16 @@ public class Main {
             }
         }
 
-        dfs(0, 0, 1, String.valueOf(board[0][0]));
+        visited[board[0][0] - 'A'] = true;
+        dfs(0, 0, 1);
 
         System.out.println(max);
         br.close();
     }
 
-    private static void dfs(int i, int j, int depth, String str){
+    private static void dfs(int i, int j, int depth){
+        max = Math.max(max, depth);
+
         for(int k = 0; k < 4; k++){
             int nr = i + dr[k];
             int nc = j + dc[k];
@@ -40,10 +45,12 @@ public class Main {
             if(nr < 0 || nr >= N || nc < 0 || nc >= M)
                 continue;
 
-            if(!str.contains(board[nr][nc]+"")){
-                dfs(nr, nc, depth + 1, str + board[nr][nc]);
-            }else{
-                max = Math.max(max, depth);
+            int idx = board[nr][nc] - 'A';
+
+            if(!visited[idx]){
+                visited[idx] = true;
+                dfs(nr, nc, depth + 1);
+                visited[idx] = false;
             }
         }
     }
