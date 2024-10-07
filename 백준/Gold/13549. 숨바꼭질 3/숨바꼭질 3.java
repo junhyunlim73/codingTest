@@ -1,71 +1,47 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
-    static int[] time;
-    static boolean[] visited;
+    static int[] visited;
     static int N, K;
-    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
     public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         N = Integer.parseInt(st.nextToken());
         K = Integer.parseInt(st.nextToken());
-        time = new int[100001];
-        visited = new boolean[100001];
-        boolean isFind = false;
-        Queue<Integer> q = new LinkedList<>();
+
+        visited = new int[100001];
+        Arrays.fill(visited, 100001);
+        ArrayDeque<Integer> q = new ArrayDeque<>();
         q.add(N);
-        visited[N] = true;
+        visited[N] = 0;
+
         while (!q.isEmpty()) {
-            int cur = q.poll();
-            
-            if(cur < 0 || cur > 100000)
-                break;
-            
-            int num1 = cur - 1;
-            int num2 = cur * 2;
-            int num3 = cur + 1;
-            
-            if(num1 > -1){
-                if(!visited[num1]){
-                    time[num1] = time[cur] + 1;
-                    q.add(num1);
-                    visited[num1] = true;
-                }
-                if(num1 == K)
-                    isFind = true;
+            int now = q.poll();
+
+            if((now * 2) <= 100000 && (visited[now] < visited[now * 2])){
+                visited[now*2] = visited[now];
+                q.addFirst(now*2);
             }
 
-            if(num2 <= 100000){
-                if(!visited[num2]){
-                    time[num2] = time[cur];
-                    q.add(num2);
-                    visited[num2] = true;
-                }
-                if(num2 == K)
-                    isFind = true;
+            if((now + 1) <= 100000 && ((visited[now] + 1) < visited[now+1])){
+                visited[now+1] = visited[now] + 1;
+                q.add(now+1);
             }
 
-            if(num3 < 100001){
-                if(!visited[num3]){
-                    time[num3] = time[cur] + 1;
-                    q.add(num3);
-                    visited[num3] = true;
-                }
-                if(num3 == K)
-                    isFind = true;
+            if((now - 1) >= 0 &&  (visited[now] + 1) < visited[now-1]){
+                visited[now-1] = visited[now] + 1;
+                q.add(now-1);
             }
 
-            if(isFind)
-                break;
         }
 
-        System.out.println(time[K]);
+        System.out.println(visited[K]);
         br.close();
     }
 
