@@ -4,22 +4,30 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
+
     static long A, B, C;
-    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
     public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
+
         A = Long.parseLong(st.nextToken());
         B = Long.parseLong(st.nextToken());
         C = Long.parseLong(st.nextToken());
-        long res = 1;
-        while(B > 0){
-            if(B % 2 == 1)
-                res = ((res % C) * (A % C) )% C;
+
+        long result = 1;
+
+       while(B > 0){
+            if((B & 1) == 1) {
+                result = ((result % C) * (A % C)) % C;
+            }
+
             A = ((A % C) * (A % C)) % C;
-            B /= 2;
+            B >>= 1;
         }
-        System.out.println(res % C);
-        br.close();
+
+       System.out.println(result);
+       br.close();
     }
-    
+
 }
