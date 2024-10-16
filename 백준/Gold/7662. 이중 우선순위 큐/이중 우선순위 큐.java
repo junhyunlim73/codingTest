@@ -1,47 +1,59 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.*;
+import java.io.*;
+import java.util.StringTokenizer;
+import java.util.TreeMap;
 
 public class Main {
+    static int T;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        TreeMap<Long, Integer> map;
-        int n = Integer.parseInt(br.readLine());
-        for(int i = 0; i < n; i++){
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        T = Integer.parseInt(br.readLine());
+
+        while (T-- > 0) {
             int k = Integer.parseInt(br.readLine());
-            map = new TreeMap<>(Comparator.reverseOrder());
-            for(int j = 0; j < k; j++){
-                String[] temp = br.readLine().split(" ");
-                Long num = Long.parseLong(temp[1]);
-                if(temp[0].equals("I")){
+            TreeMap<Long, Integer> map = new TreeMap<>();
+
+            for (int i = 0; i < k; i++) {
+                StringTokenizer st = new StringTokenizer(br.readLine());
+                String cmd = st.nextToken();
+                long num = Integer.parseInt(st.nextToken());
+
+                if(cmd.equals("I")) {
                     map.put(num, map.getOrDefault(num, 0) + 1);
-                }else{
-                    if(temp[1].equals("1")){
+                }else if(cmd.equals("D")) {
+                    if(num == -1){
                         if(!map.isEmpty()){
-                            Long fKey = map.firstKey();
-                            map.put(fKey, map.getOrDefault(fKey, 0) - 1);
-                            if(map.get(fKey) == 0){
-                                map.remove(fKey);
+                            long key = map.firstKey();
+                            map.put(key, map.getOrDefault(key, 0) - 1);
+
+                            if(map.get(key) == 0){
+                                map.remove(key);
                             }
                         }
                     }else{
                         if(!map.isEmpty()){
-                            Long lKey = map.lastKey();
-                            map.put(lKey, map.getOrDefault(lKey, 0) - 1);
-                            if(map.get(lKey) == 0){
-                                map.remove(lKey);
+                            long key = map.lastKey();
+                            map.put(key, map.getOrDefault(key, 0) - 1);
+
+                            if(map.get(key) == 0){
+                                map.remove(key);
                             }
                         }
                     }
                 }
             }
-            if(map.isEmpty()){
-                System.out.println("EMPTY");
-            }else{
-                System.out.println(map.firstKey() + " " + map.lastKey());
-            }
+
+            if(map.isEmpty())
+                bw.write("EMPTY\n");
+            else
+                bw.write(map.lastKey() + " " + map.firstKey() + "\n");
         }
+
+        bw.flush();
+        bw.close();
         br.close();
     }
+
 }
