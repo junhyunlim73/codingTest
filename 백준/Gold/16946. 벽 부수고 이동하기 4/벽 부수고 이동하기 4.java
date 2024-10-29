@@ -97,7 +97,7 @@ public class Main {
 
             int id = areaId[nr][nc];
 
-            if(id != 0 && !set.contains(id) && map.containsKey(id)){
+            if(id != 0 && !set.contains(id)){
                 crash += map.get(id);
                 set.add(id);
             }
