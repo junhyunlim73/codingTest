@@ -3,36 +3,31 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
-    static int N, P, cnt;
-    static char[] ch;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        N = Integer.parseInt(br.readLine());
-        P = Integer.parseInt(br.readLine());
-        ch = br.readLine().toCharArray();
-        int num = (2*N) + 1;
-        String target = "I" + "OI".repeat(N);
-        String str = "";
+        int N = Integer.parseInt(br.readLine());
+        int M = Integer.parseInt(br.readLine());
+        String str = br.readLine();
 
-        for (int i = 0; i < num; i++) {
-            str += ch[i];
-        }
+        int result = 0;
+        int cnt = 0;
 
-        if(str.equals(target)) {
-            cnt++;
-        }
-
-        for(int i = num; i < P; i++){
-            str = str.substring(1, num) + ch[i];
-
-            if(str.equals(target)) {
+        for(int i = 1; i < M - 1; i++){
+            if((str.charAt(i-1) == 'I') && (str.charAt(i) == 'O') && (str.charAt(i + 1) == 'I')){
                 cnt++;
-            }
 
+                if(cnt == N){
+                    cnt--;
+                    result++;
+                }
+                i++;
+            }else{
+                cnt = 0;
+            }
         }
 
-        System.out.println(cnt);
+        System.out.println(result);
         br.close();
     }
 
