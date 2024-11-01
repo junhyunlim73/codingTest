@@ -3,63 +3,53 @@ import java.util.StringTokenizer;
 
 public class Main {
     static int[][] dp;
+    static int N;
     static int[] arr;
-    static int N, T;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         N = Integer.parseInt(br.readLine());
-        arr = new int[N];
+
+        arr = new int[N+1];
         dp = new int[N+1][N+1];
 
         StringTokenizer st = new StringTokenizer(br.readLine());
 
-        for(int i = 0; i < N; i++){
+        for (int i = 1; i < N + 1; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        T = Integer.parseInt(br.readLine());
-
         for(int i = 1; i < N + 1; i++){
-            for(int j = i; j < N + 1; j++){
-                if(i == j){
-                    dp[i][j] = 1;
-                    continue;
-                }
-
-                if(isPalindrome(i - 1, j - 1)){
-                    dp[i][j] = 1;
-                }else{
-                    dp[i][j] = 0;
-                }
-
-            }
-
+            dp[i][i] = 1;
         }
 
-        while(T --> 0){
+        for(int i = 1; i < N; i++){
+            if(arr[i] == arr[i+1]){
+                dp[i][i+1] = 1;
+            }
+        }
+
+        for(int i = 2; i < N; i++){
+            for(int j = 1; j <= N - i; j++){
+                if(arr[j] == arr[j+i] && dp[j+1][j+i-1] == 1){
+                    dp[j][j+i] = 1;
+                }
+            }
+        }
+
+        int T = Integer.parseInt(br.readLine());
+
+        while(T-- > 0){
             st = new StringTokenizer(br.readLine());
-            int r = Integer.parseInt(st.nextToken());
-            int c = Integer.parseInt(st.nextToken());
-            bw.write(dp[r][c] + "\n");
+            int s = Integer.parseInt(st.nextToken());
+            int e = Integer.parseInt(st.nextToken());
+            bw.write(dp[s][e] + "\n");
         }
 
         bw.flush();
         bw.close();
         br.close();
-    }
-
-    private static boolean isPalindrome(int start, int end) {
-        int cnt = (end - start)/2;
-
-        for(int i = 0; i <= cnt; i++){
-            if(arr[start+i] != arr[end-i]){
-                return false;
-            }
-        }
-
-        return true;
     }
 
 }
