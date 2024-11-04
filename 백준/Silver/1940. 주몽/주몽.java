@@ -5,33 +5,44 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
+    static int N, M;
+    static int[] arr;
+    static int cnt;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(br.readLine());
-        int m = Integer.parseInt(br.readLine());
-        int[] com = new int[n];
-        int start_index = 0;
-        int end_index = n-1;
-        int count = 0;
+        N = Integer.parseInt(br.readLine());
+        M = Integer.parseInt(br.readLine());
+
+        arr = new int[N];
+
         StringTokenizer st = new StringTokenizer(br.readLine());
-        for(int i = 0; i < n; i++){
-             com[i] = Integer.parseInt(st.nextToken());
+
+        for(int i = 0; i < N; i++){
+            arr[i] = Integer.parseInt(st.nextToken());
         }
-        Arrays.sort(com);
-        while(start_index < end_index){
-            int sum = com[start_index] + com[end_index];
-            if(sum == m){
-                count++;
-                start_index++;
-                end_index--;
-            }else if(sum < m){
-                start_index++;
+
+        Arrays.sort(arr);
+        int startIdx = 0;
+        int endIdx = N-1;
+
+        while(startIdx < endIdx){
+            int sum = arr[startIdx] + arr[endIdx];
+
+            if(sum == M) {
+                cnt++;
+                startIdx++;
+                endIdx--;
+            }else if(sum > M){
+                endIdx--;
             }else{
-                end_index--;
+                startIdx++;
             }
+
         }
-        
-        System.out.println(count);
+
+        System.out.println(cnt);
         br.close();
     }
+
 }
