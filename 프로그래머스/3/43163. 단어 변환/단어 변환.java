@@ -27,7 +27,6 @@ class Solution {
             int cnt = now.cnt;
             
             if(word.equals(target)){
-                flag = true;
                 answer = cnt;
                 break;
             }
@@ -42,10 +41,7 @@ class Solution {
             
         }
         
-        if(flag)
-            return answer;
-        
-        return 0;
+        return answer;
     }
     
     private boolean isCheck(int idx, String word1, String word2){
