@@ -2,16 +2,8 @@ class Solution {
     
     public int solution(int n, int k) {
         int answer = 0;
-        String nums = "";
         
-        while(n > 0){
-            int num = n % k;
-            String str = String.valueOf(num);
-            nums = str + nums;
-            n /= k;
-        }
-        
-        String[] temps = nums.split("0");
+        String[] temps = Integer.toString(n,k).split("0");
         
         for(String temp : temps){
             if(temp.equals(""))
