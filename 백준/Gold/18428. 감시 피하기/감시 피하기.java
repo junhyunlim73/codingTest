@@ -7,85 +7,93 @@ import java.util.StringTokenizer;
 public class Main {
     static int[] dr = {-1, 1, 0, 0};
     static int[] dc = {0, 0, -1, 1};
-    static ArrayList<int[]> o;
-    static ArrayList<int[]> t;
     static boolean[][] visited;
     static String[][] board;
     static int N;
-    static boolean isPossible;
+    static ArrayList<int[]> X;
+    static ArrayList<int[]> T;
+    static boolean isPos;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         N = Integer.parseInt(br.readLine());
-        o = new ArrayList<>();
-        t = new ArrayList<>();
+
         visited = new boolean[N][N];
         board = new String[N][N];
+        X = new ArrayList<>();
+        T = new ArrayList<>();
 
-        for (int i = 0; i < N; i++) {
+        for(int i = 0; i < N; i++){
             StringTokenizer st = new StringTokenizer(br.readLine());
-            for (int j = 0; j < N; j++) {
+            for(int j = 0; j < N; j++){
                 board[i][j] = st.nextToken();
 
-                if(board[i][j].equals("X"))
-                    o.add(new int[]{i, j});
-                else if(board[i][j].equals("T"))
-                    t.add(new int[]{i, j});
+                if(board[i][j].equals("X")){
+                    X.add(new int[]{i, j});
+                }else if(board[i][j].equals("T")){
+                    T.add(new int[]{i, j});
+                }
 
             }
         }
 
-        perm(0);
-
-        System.out.println(isPossible ? "YES" : "NO");
+        combi(0, 0);
+        System.out.println(isPos ? "YES" : "NO");
+        br.close();
     }
 
-    private static void perm(int depth){
+    private static void combi(int index, int depth) {
         if(depth == 3){
             boolean flag = false;
 
-            for(int i = 0; i < t.size(); i++){
-                int[] cur = t.get(i);
-                int r = cur[0];
-                int c = cur[1];
+            for(int[] now : T){
+                int row = now[0];
+                int col = now[1];
 
-                for(int j = 0; j < 4; j++){
-                    int nr = r + dr[j];
-                    int nc = c + dc[j];
+                for(int i = 0; i < 4; i++){
+                    int nr = row + dr[i];
+                    int nc = col + dc[i];
 
-                    while (nr >= 0 && nr < N && nc >= 0 && nc < N){
-                        if(board[nr][nc].equals("O"))
+                    while(!flag && nr >= 0 && nr < N && nc >= 0 && nc < N){
+                        if(board[nr][nc].equals("O")){
                             break;
-                        else if(board[nr][nc].equals("S")){
+                        }else if(board[nr][nc].equals("S")){
                             flag = true;
                             break;
                         }else{
-                            nr = nr + dr[j];
-                            nc = nc + dc[j];
+                            nr += dr[i];
+                            nc += dc[i];
                         }
-
                     }
 
-                    if(flag)
-                        break;
                 }
 
-                isPossible = !flag ? true : false;
+                if(flag)
+                    break;
             }
+
+            isPos = !flag ? true : false;
 
             return;
         }
 
-        for(int i = 0; i < o.size(); i++){
-            int[] cur = o.get(i);
-            if(!visited[cur[0]][cur[1]] && !isPossible){
-                visited[cur[0]][cur[1]] = true;
-                board[cur[0]][cur[1]] = "O";
-                perm(depth+1);
-                board[cur[0]][cur[1]] = "X";
-                visited[cur[0]][cur[1]] = false;
-            }
+        if(index == X.size()){
+            return;
         }
 
+        for(int i = index; i < X.size(); i++){
+            int[] arr = X.get(i);
+            int row = arr[0];
+            int col = arr[1];
+
+            if(!isPos && !visited[row][col]){
+                visited[row][col] = true;
+                board[row][col] = "O";
+                combi(i+1, depth + 1);
+                visited[row][col] = false;
+                board[row][col] = "X";
+            }
+
+        }
     }
 }
