@@ -1,18 +1,17 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 public class Main {
-    static ArrayList<XY> list = new ArrayList<XY>();
+    static XY[] xyArr;
     static ArrayList<Edge>[] adj;
     static double[] times;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
         XY s = new XY(Double.parseDouble(st.nextToken()), Double.parseDouble(st.nextToken()));
@@ -24,39 +23,39 @@ public class Main {
         int n = Integer.parseInt(br.readLine());
 
         adj = new ArrayList[n+2];
+        xyArr = new XY[n+2];
         times = new double[n+2];
 
         for(int i = 0; i < n + 2; i++){
             adj[i] = new ArrayList<Edge>();
         }
 
-        list.add(s);
+        xyArr[0] = s;
+        xyArr[n+1] = e;
 
-        for (int i = 0; i < n; i++) {
+        for (int i = 1; i < n + 1; i++) {
             st = new StringTokenizer(br.readLine());
             double x = Double.parseDouble(st.nextToken());
             double y = Double.parseDouble(st.nextToken());
-            list.add(new XY(x, y));
+            xyArr[i] = new XY(x, y);
         }
 
-        list.add(e);
-
         for(int i = 1; i < n+2; i++){
-            double dist = Math.sqrt(Math.pow(list.get(0).x - list.get(i).x, 2) + Math.pow(list.get(0).y - list.get(i).y, 2));
+            double dist = Math.sqrt(Math.pow(xyArr[0].x - xyArr[i].x, 2) + Math.pow(xyArr[0].y - xyArr[i].y, 2));
             adj[0].add(new Edge(i, dist / 5.0));
         }
 
         for(int i = 1; i < n + 2; i++){
-            for(int j = 0; j < n + 2; j++){
-                if(i == j)
-                    continue;
-                double dist = Math.sqrt(Math.pow(list.get(i).x - list.get(j).x, 2) + Math.pow(list.get(i).y - list.get(j).y, 2));
-                adj[i].add(new Edge(j, Math.min(dist / 5.0, Math.abs(dist - 50) / 5.0) + 2));
+            for(int j = i + 1; j < n + 2; j++){
+                double dist = Math.sqrt(Math.pow(xyArr[i].x - xyArr[j].x, 2) + Math.pow(xyArr[i].y - xyArr[j].y, 2));
+                double time = Math.min(dist / 5.0, Math.abs(dist - 50) / 5.0 + 2);
+                adj[i].add(new Edge(j, time));
+                adj[j].add(new Edge(i, time));
             }
         }
 
         dijkstra(0);
-        System.out.print(times[n+1]);
+        System.out.println(times[n+1]);
         br.close();
     }
 
