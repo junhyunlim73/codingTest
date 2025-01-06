@@ -73,7 +73,7 @@ public class Main {
                 continue;
 
             for(Edge next : adj[e.v]){
-                if(times[next.v] == Double.MAX_VALUE || times[e.v] + next.time < times[next.v]){
+                if(times[e.v] + next.time < times[next.v]){
                     times[next.v] = times[e.v] + next.time;
                     pq.add(new Edge(next.v, times[next.v]));
                 }
