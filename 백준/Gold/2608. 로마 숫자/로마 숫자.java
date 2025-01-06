@@ -83,10 +83,9 @@ public class Main {
                 }else if(p == 4){
                     romeStr += "CD";
                 }else if(p >= 5){
+                    p -= 5;
                     romeStr += "D";
-
-                    if((p-5) > 0)
-                        romeStr += "C".repeat(p-5);
+                    romeStr += "C".repeat(p);
                 }else{
                    romeStr += "C".repeat(p);
                 }
@@ -100,8 +99,8 @@ public class Main {
                     romeStr += "XL";
                 }else if(p >= 5){
                     romeStr += "L";
-                    if((p - 5) > 0)
-                        romeStr += "X".repeat(p-5);
+                    p -= 5;
+                    romeStr += "X".repeat(p);
                 }else{
                     romeStr += "X".repeat(p);
                 }
@@ -115,8 +114,8 @@ public class Main {
                     romeStr += "IV";
                 }else if(p >= 5){
                     romeStr += "V";
-                    if((p - 5) > 0)
-                        romeStr += "I".repeat(p-5);
+                    p -= 5;
+                    romeStr += "I".repeat(p);
                 }else{
                     romeStr += "I".repeat(p);
                 }
