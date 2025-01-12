@@ -8,7 +8,7 @@ import java.util.StringTokenizer;
 public class Main {
     static int[] parents;
     static int N, M, cnt, startNode;
-    static ArrayList<Node>[] adj;
+    static ArrayList<Edge>[] adj;
     static long mst, max;
     static boolean[] visited;
 
@@ -47,8 +47,8 @@ public class Main {
                 union(start, end);
                 cnt++;
                 mst += now.cost;
-                adj[now.s].add(new Node(now.e, now.cost));
-                adj[now.e].add(new Node(now.s, now.cost));
+                adj[now.s].add(new Edge(now.e, now.cost));
+                adj[now.e].add(new Edge(now.s, now.cost));
             }
 
             if(cnt == N-1)
@@ -57,11 +57,14 @@ public class Main {
 
         sb.append(mst).append("\n");
 
-        for(int i = 0; i < N; i++){
-            visited = new boolean[N];
-            visited[i] = true;
-            dfs(i, 0);
-        }
+        visited = new boolean[N];
+        visited[0] = true;
+        dfs(0, 0);
+
+        max = 0;
+        visited = new boolean[N];
+        visited[startNode] = true;
+        dfs(startNode, 0);
 
         sb.append(max).append("\n");
 
@@ -75,11 +78,10 @@ public class Main {
             startNode = start;
         }
 
-        for(Node next : adj[start]){
-            if(!visited[next.v]){
-                visited[next.v] = true;
-                dfs(next.v, total + next.e);
-                visited[next.v] = false;
+        for(Edge next : adj[start]){
+            if(!visited[next.s]){
+                visited[next.s] = true;
+                dfs(next.s, total + next.cost);
             }
         }
 
@@ -100,25 +102,17 @@ public class Main {
             parents[x] = y;
     }
 
-    static class Node implements Comparable<Node>{
-        int v, e;
-
-        public Node(int v, int e){
-            this.v = v;
-            this.e = e;
-        }
-
-        public int compareTo(Node o) {
-            return Integer.compare(o.v, this.v);
-        }
-    }
-
     static class Edge implements Comparable<Edge>{
         int s, e, cost;
 
         public Edge(int s, int e, int cost){
             this.s = s;
             this.e = e;
+            this.cost = cost;
+        }
+
+        public Edge(int s, int cost){
+            this.s = s;
             this.cost = cost;
         }
 
