@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -88,18 +87,16 @@ public class Main {
 
                     coins.add(new Coin(nr3, nc3, nr4, nc4, cnt+1));
                 }else{
-                    min = Math.min(min, cnt);
+                    System.out.println(cnt);
+                    return;
                 }
 
             }
-            
+
         }
 
         if(min == 11)
             System.out.println(-1);
-        else{
-            System.out.println(min);
-        }
 
         br.close();
     }
@@ -116,5 +113,5 @@ public class Main {
         }
 
     }
-    
+
 }
