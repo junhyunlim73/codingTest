@@ -3,47 +3,49 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
-    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    static int[] first = {2,3,5,7};
-    static int[] remain = {1,3,5,7,9};
+    static int[] primes = {2, 3, 5, 7};
     static int N;
     static StringBuilder sb = new StringBuilder();
 
     public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         N = Integer.parseInt(br.readLine());
+
         perm(0, 0);
-        System.out.println(sb);
+        System.out.print(sb);
         br.close();
     }
 
-    static private void perm(int depth, int sum){
+    private static void perm(int depth, int total){
         if(depth == N){
-            sb.append(sum + "\n");
+            sb.append(total).append("\n");
             return;
         }
 
         if(depth == 0){
-            for(int num : first){
-                perm(depth+1, num);
+            for(int i = 0; i < 4; i++){
+              perm(depth + 1, primes[i]);
             }
         }else{
-            for(int num : remain){
-                int temp = sum * 10;
-                temp += num;
-                if(isPrime(temp)){
-                    perm(depth + 1, temp);
-                }
+            for(int i = 1; i < 10; i+= 2){
+                if(i == 5)
+                    continue;
+
+                int sum = total * 10 + i;
+
+                if(isPrime(sum))
+                    perm(depth+1, sum);
             }
         }
 
     }
 
-    static private boolean isPrime(int n){
+    private static boolean isPrime(int n){
         for(int i = 2; i <= Math.sqrt(n); i++){
-            if(n % i == 0){
+            if(n % i == 0)
                 return false;
-            }
         }
+
         return true;
     }
 
