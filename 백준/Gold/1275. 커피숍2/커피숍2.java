@@ -76,8 +76,8 @@ public class Main {
                 sum += trees[e--];
             }
 
-            s /= 2;
-            e /= 2;
+            s >>= 1;
+            e >>= 1;
         }
 
         return sum;
@@ -86,11 +86,11 @@ public class Main {
     private static void updateVal(int idx, int val){
         long diff = trees[idx] - val;
         trees[idx] = val;
-        idx /= 2;
+        idx >>= 1;
 
         while(idx > 0){
             trees[idx] -= diff;
-            idx /= 2;
+            idx >>= 1;
         }
 
     }
