@@ -8,6 +8,7 @@ import java.util.StringTokenizer;
 public class Main {
     static int N, M, A, B, C;
     static ArrayList<Node>[] adj;
+    static boolean[] visited;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -20,6 +21,7 @@ public class Main {
         C = Integer.parseInt(st.nextToken());
 
         adj = new ArrayList[N + 1];
+        visited = new boolean[N + 1];
 
         for (int i = 1; i < N + 1; i++) {
             adj[i] = new ArrayList<Node>();
@@ -42,6 +44,7 @@ public class Main {
     private static int dijkstra(int s, int e){
         PriorityQueue<Node> q = new PriorityQueue<Node>();
         q.add(new Node(s, 0, 0));
+        visited[s] = true;
 
         while(!q.isEmpty()){
             Node cur = q.poll();
@@ -54,9 +57,10 @@ public class Main {
             for(Node next : adj[cur.v]){
                 int nextDist = dist + next.dist;
 
-                if(nextDist <= C){
-                    max = Math.max(max, next.dist);
-                    q.add(new Node(next.v, nextDist, max));
+                if(!visited[next.v] && nextDist <= C){
+                    visited[next.v] = true;
+                    int newMax = Math.max(max, next.dist);
+                    q.add(new Node(next.v, nextDist, newMax));
                 }
             }
 
