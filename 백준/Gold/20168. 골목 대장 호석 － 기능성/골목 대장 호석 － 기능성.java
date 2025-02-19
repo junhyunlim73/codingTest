@@ -2,13 +2,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 public class Main {
     static int N, M, A, B, C;
     static ArrayList<Node>[] adj;
     static boolean[] visited;
+    static int answer = Integer.MAX_VALUE;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -33,57 +33,43 @@ public class Main {
             int b = Integer.parseInt(st.nextToken());
             int c = Integer.parseInt(st.nextToken());
 
-            adj[a].add(new Node(b, c, 0));
-            adj[b].add(new Node(a, c, 0));
+            adj[a].add(new Node(b, c));
+            adj[b].add(new Node(a, c));
         }
 
-        System.out.println(dijkstra(A, B));
+        visited[A] = true;
+        dfs(A, B, 0, 0);
+
+        System.out.println(answer == Integer.MAX_VALUE ? -1 : answer);
         br.close();
     }
 
-    private static int dijkstra(int s, int e){
-        PriorityQueue<Node> q = new PriorityQueue<Node>();
-        q.add(new Node(s, 0, 0));
-        visited[s] = true;
-
-        while(!q.isEmpty()){
-            Node cur = q.poll();
-            int dist = cur.dist;
-            int max = cur.max;
-
-            if(cur.v == e)
-                return max;
-
-            for(Node next : adj[cur.v]){
-                int nextDist = dist + next.dist;
-
-                if(!visited[next.v] && nextDist <= C){
-                    visited[next.v] = true;
-                    int newMax = Math.max(max, next.dist);
-                    q.add(new Node(next.v, nextDist, newMax));
-                }
-            }
-
+    private static void dfs(int s, int e, int dist, int maxCost){
+        if(s == e){
+            answer = Math.min(answer, maxCost);
+            return;
         }
 
-        return -1;
+        for(Node next : adj[s]){
+            int nextDist = dist + next.dist;
+
+            if(!visited[next.v] && nextDist <= C){
+                visited[next.v] = true;
+                dfs(next.v, e, nextDist, Math.max(maxCost, next.dist));
+                visited[next.v] = false;
+            }
+        }
+
     }
 
-    static class Node implements Comparable<Node>{
-        int v, dist, max;
+    static class Node{
+        int v, dist;
 
-        public Node(int v, int dist, int max){
+        public Node(int v, int dist){
             this.v = v;
             this.dist = dist;
-            this.max = max;
         }
-
-        public int compareTo(Node o){
-            if(this.max == o.max)
-                return Integer.compare(this.dist, o.dist);
-            return Integer.compare(this.max, o.max);
-        }
-
+        
     }
 
 }
