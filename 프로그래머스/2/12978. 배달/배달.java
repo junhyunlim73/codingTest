@@ -4,12 +4,10 @@ class Solution {
     static ArrayList<Node>[] adj;
     static int[] dist;
     static int INF = 1_000_000_000;
-    static boolean[] visited;
     
     public int solution(int N, int[][] road, int K) {
         dist = new int[N+1];
         adj = new ArrayList[N+1];
-        visited = new boolean[N+1];
         
         for(int i = 1; i < N + 1; i++){
             adj[i] = new ArrayList<>();
@@ -44,9 +42,8 @@ class Solution {
             if(dist[now.v] < now.cost)
                 continue;
             
-            if(!visited[now.v] && now.cost <= k){
+            if(now.cost <= k){
                 cnt++;
-                visited[now.v] = true;
             }
             
             for(Node next : adj[now.v]){
@@ -73,7 +70,7 @@ class Solution {
         }
         
         public int compareTo(Node o){
-            return Integer.compare(this.v, o.v);
+            return Integer.compare(this.cost, o.cost);
         }
     }
     
