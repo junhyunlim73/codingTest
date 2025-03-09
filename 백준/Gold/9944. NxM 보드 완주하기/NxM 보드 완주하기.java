@@ -1,7 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 
 public class Main {
@@ -29,7 +29,7 @@ public class Main {
             visited = new boolean[N][M];
             board = new char[N][M];
             min = 1_000_001;
-            ArrayList<int[]> list = new ArrayList<>();
+            HashSet<int[]> set = new HashSet<>();
 
             for(int i = 0; i < N; i++){
                 char[] arr = br.readLine().toCharArray();
@@ -37,15 +37,15 @@ public class Main {
                     board[i][j] = arr[j];
 
                     if(board[i][j] == '.'){
-                        list.add(new int[]{i, j});
+                        set.add(new int[]{i, j});
                     }
 
                 }
             }
 
-            int cnt = list.size();
+            int cnt = set.size();
 
-            for(int[] arr : list){
+            for(int[] arr : set){
                 int r = arr[0];
                 int c = arr[1];
                 visited[r][c] = true;
@@ -79,10 +79,6 @@ public class Main {
                 continue;
 
             int key = map.size();
-
-            if(!map.containsKey(key))
-                continue;
-
             int[] arr = map.get(key);
             int nr = arr[0];
             int nc = arr[1];
