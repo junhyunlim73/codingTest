@@ -7,4 +7,5 @@ join doctor d
 on a.MDDR_ID = d.DR_ID
 where to_char(a.APNT_YMD,'YYYY-MM-DD') = '2022-04-13'
 and a.APNT_CNCL_YN = 'N'
+and a.MCDP_CD = 'CS'
 order by a.APNT_YMD
