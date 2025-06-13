@@ -1,5 +1,5 @@
 -- 코드를 입력하세요
-SELECT (trunc((price / 10000), 0) * 10000) "PRICE_GROUP", count(*) PRODUCTS
+SELECT (TRUNCATE(PRICE / 10000, 0) * 10000)  as "PRICE_GROUP", count(*) as "PRODUCTS"
 from PRODUCT
-group by trunc((price / 10000), 0)
-order by trunc((price / 10000), 0)
+group by (TRUNCATE(PRICE / 10000, 0) * 10000) 
+order by (TRUNCATE(PRICE / 10000, 0) * 10000) 
