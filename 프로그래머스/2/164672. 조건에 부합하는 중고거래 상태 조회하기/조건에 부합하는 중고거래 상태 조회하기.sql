@@ -1,6 +1,10 @@
 -- 코드를 입력하세요
-SELECT BOARD_ID, WRITER_ID, TITLE, PRICE, decode(STATUS, 'DONE', '거래완료', 'SALE', '판매중',
-                                                'RESERVED', '예약중') as "STATUS"
+SELECT BOARD_ID, WRITER_ID, TITLE, PRICE, 
+case 
+when STATUS = 'DONE' then '거래완료'
+when STATUS = 'SALE' then '판매중'
+when status = 'RESERVED' then '예약중'
+end as "STATUS"
 from USED_GOODS_BOARD
-where TO_CHAR(CREATED_DATE, 'YYYY-MM-DD') = '2022-10-05'
-order by board_id desc
+where date_format(CREATED_DATE, '%y%m%d') = '221005'
+order by BOARD_ID desc
