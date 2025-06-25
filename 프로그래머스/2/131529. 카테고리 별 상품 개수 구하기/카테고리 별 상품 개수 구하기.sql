@@ -1,5 +1,5 @@
 -- 코드를 입력하세요
-SELECT substr(PRODUCT_CODE, 1, 2) "CATEGORY", count(*) "PRODUCTS"
+SELECT substring(PRODUCT_CODE, 1, 2) as "CATEGORY", count(*) as "PRODUCTS"
 from PRODUCT
-group by substr(PRODUCT_CODE, 1, 2)
+group by substring(PRODUCT_CODE, 1, 2)
 order by CATEGORY
