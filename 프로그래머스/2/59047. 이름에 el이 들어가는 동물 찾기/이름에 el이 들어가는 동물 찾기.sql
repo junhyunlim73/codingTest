@@ -1,6 +1,6 @@
 -- 코드를 입력하세요
 SELECT ANIMAL_ID, NAME
-FROM ANIMAL_INS
-where lower(NAME) like '%el%'
+from ANIMAL_INS
+where instr(lower(name), 'el') > 0
 and ANIMAL_TYPE = 'Dog'
-order by name
+order by NAME
