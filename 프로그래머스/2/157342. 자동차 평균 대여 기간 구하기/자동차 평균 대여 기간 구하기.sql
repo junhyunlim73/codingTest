@@ -1,6 +1,6 @@
 -- 코드를 입력하세요
-SELECT car_id, to_char(round(avg(end_Date - start_date + 1), 1), 'FM9990.0') "AVERAGE_DURATION"
+SELECT CAR_ID, round(avg(DATEDIFF(END_DATE, START_DATE) + 1), 1) as "AVERAGE_DURATION"
 from CAR_RENTAL_COMPANY_RENTAL_HISTORY
-group by car_id
-having avg(end_Date - start_date + 1) >= 7
-order by round(avg(end_Date - start_date + 1), 1) desc, car_id desc
+group by CAR_ID
+having avg(DATEDIFF(END_DATE, START_DATE) + 1) >= 7
+order by AVERAGE_DURATION desc, car_id desc
