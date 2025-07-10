@@ -1,11 +1,11 @@
 -- 코드를 입력하세요
-SELECT distinct user_id, product_id
+SELECT distinct USER_ID, PRODUCT_ID
 from ONLINE_SALE o
-where exists (
-select 'X'
-from ONLINE_SALE i
-where o.USER_ID = i.USER_ID
-and o.product_id = i.product_id
-and o.SALES_DATE <> i.SALES_DATE
+where exists
+( select 'X'
+from ONLINE_SALE s
+where o.USER_ID = s.USER_ID
+and o.PRODUCT_ID = s.PRODUCT_ID
+and o.SALES_DATE <> s.SALES_DATE
 )
-order by user_id, product_id desc
+order by USER_ID, PRODUCT_ID desc
