@@ -2,4 +2,4 @@
 SELECT ANIMAL_ID, NAME
 from ANIMAL_INS
 where INTAKE_CONDITION <> 'Aged'
-order by animal_id
+order by ANIMAL_ID
