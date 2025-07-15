@@ -1,7 +1,5 @@
 -- 코드를 입력하세요
-SELECT name
-from (
-    select *
-    from ANIMAL_INS
-order by DATETIME)
-where ROWNUM <= 1;
+SELECT NAME
+from ANIMAL_INS
+order by DATETIME
+limit 1
