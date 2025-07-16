@@ -1,6 +1,6 @@
 # [level 2] DATETIME에서 DATE로 형 변환 - 59414 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/59414) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/59414?language=mysql) 
 
 ### 성능 요약
 
@@ -16,7 +16,7 @@ Empty
 
 ### 제출 일자
 
-2025년 03월 22일 16:41:28
+2025년 07월 16일 09:25:08
 
 ### 문제 설명
 
