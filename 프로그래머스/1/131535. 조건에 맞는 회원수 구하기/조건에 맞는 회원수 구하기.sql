@@ -1,5 +1,5 @@
 -- 코드를 입력하세요
-SELECT count(*) "USERS"
+SELECT count(*)
 from USER_INFO
-where TO_CHAR(JOINED, 'YYYY') = '2021'
-and age between 20 and 29
+where  JOINED like '2021%'
+and AGE between 20 and 29
