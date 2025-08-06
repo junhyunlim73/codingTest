@@ -1,9 +1,8 @@
 -- 코드를 입력하세요
-select a.name, a.datetime
-from (SELECT i.name, i.datetime
+SELECT i.NAME, i.DATETIME
 from ANIMAL_INS i
 left join ANIMAL_OUTS o
-on i.animal_id = o.animal_id
-where o.animal_id is null
-order by i.datetime) a
-where rownum <= 3
+on i.ANIMAL_ID = o.ANIMAL_ID	
+where o.ANIMAL_ID is null
+order by DATETIME
+limit 3
