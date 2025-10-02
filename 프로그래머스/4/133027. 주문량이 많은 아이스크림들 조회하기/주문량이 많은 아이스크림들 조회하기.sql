@@ -1,11 +1,10 @@
 -- 코드를 입력하세요
 SELECT f.FLAVOR
 from FIRST_HALF f
-join (
-select flavor, sum(TOTAL_ORDER) as "TOTAL_ORDER"
-from july
+join ( select flavor, sum(TOTAL_ORDER) as "TOTAL_ORDER"
+from JULY
 group by flavor
 ) j
-on f.FLAVOR = j.FLAVOR
-order by (f.total_order + j.total_order) desc
-FETCH FIRST 3 ROWS ONLY
+on f.flavor = j.flavor
+order by (f.TOTAL_ORDER + j.TOTAL_ORDER) desc
+limit 3
