@@ -4,5 +4,5 @@ from CAR_RENTAL_COMPANY_CAR c
 join CAR_RENTAL_COMPANY_RENTAL_HISTORY h
 on c.CAR_ID = h.CAR_ID
 where CAR_TYPE = '세단'
-and date_format(START_DATE, '%Y-%m') = '2022-10'
+and month(START_DATE) = 10
 order by c.car_id desc
