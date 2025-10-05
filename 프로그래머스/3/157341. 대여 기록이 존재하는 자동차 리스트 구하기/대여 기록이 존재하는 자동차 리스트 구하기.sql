@@ -3,6 +3,6 @@ SELECT distinct c.car_id
 from CAR_RENTAL_COMPANY_CAR c
 join CAR_RENTAL_COMPANY_RENTAL_HISTORY h
 on c.CAR_ID = h.CAR_ID
-where car_type = '세단'
-and to_char(start_date, 'MM') = '10'
+where CAR_TYPE = '세단'
+and date_format(START_DATE, '%Y-%m') = '2022-10'
 order by c.car_id desc
