@@ -1,9 +1,8 @@
 -- 코드를 입력하세요
-SELECT to_char(SALES_DATE, 'YYYY') "YEAR", to_number(to_char(SALES_DATE, 'MM')) "MONTH", gender,
-count(distinct i.user_id) "USERS"
-from USER_INFO i
+SELECT year(SALES_DATE) as "YEAR", month(SALES_DATE) as "MONTH", GENDER, count(distinct u.user_id) as "USERS"
+from USER_INFO u
 join ONLINE_SALE o
-on i.USER_ID = o.USER_ID
+on u.USER_ID = o.USER_ID
 where gender is not null
-group by to_char(SALES_DATE, 'YYYY'), to_number(to_char(SALES_DATE, 'MM')), gender
-order by YEAR, MONTH, gender
+group by year(SALES_DATE), month(SALES_DATE), GENDER
+order by year(SALES_DATE), month(SALES_DATE), GENDER
