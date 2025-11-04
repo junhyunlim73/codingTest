@@ -1,2 +1,4 @@
-# codingTest
-This is an auto push repository for Baekjoon Online Judge created with [BaekjoonHub](https://github.com/BaekjoonHub/BaekjoonHub).
+# Algorithm Study Log
+
+알고리즘 감각 유지 & 해결력 강화를 위해
+백준(BOJ) / 프로그래머스 문제를 꾸준히 풀이하며 기록하는 저장소입니다.
