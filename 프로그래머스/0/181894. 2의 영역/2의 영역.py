@@ -1,5 +1,5 @@
 def solution(arr):
-    if (2 not in arr) == True:
+    if 2 not in arr:
         return [-1]
     
     idx = arr.index(2)
