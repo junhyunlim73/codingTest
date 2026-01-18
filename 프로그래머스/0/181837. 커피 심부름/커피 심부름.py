@@ -1,12 +1,13 @@
 def solution(order):
     answer = 0
+    ice = ["iceamericano", "americanoice", "icecafelatte", "cafelatteice", "americano", "cafelatte", "anything"]
+    hot = ["hotamericano", "americanohot", "hotcafelatte", "cafelattehot"]
     
     for i in order:
-        if 'americano' in i:
+        
+        if i in ice:
             answer = answer + 4500
-        elif 'cafelatte' in i:
-            answer = answer + 5000
         else:
-            answer = answer + 4500
+            answer = answer + 5000
     
     return answer
