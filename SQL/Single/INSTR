@@ -1,0 +1,64 @@
+# INSTR
+select instr('abcdefg@naver.com', '@')
+from dual;
+
+🔹 INSTR 함수란?
+
+INSTR = IN(안에) + STR(문자열)
+
+👉 특정 문자가 문자열의 몇 번째 위치에 있는지 알려주는 함수야.
+
+기본 형태:
+
+INSTR(문자열, 찾을문자)
+
+🔹 문자열 위치 분석
+
+문자 하나씩 번호 붙여보자.
+
+위치:  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17
+문자:  a  b  c  d  e  f  g  @  n  a  v  e  r  .  c  o  m
+
+🔹 실행 결과
+8
+
+👉 '@' 문자는 8번째 위치
+
+select substr('abcdefg@naver.com' ,instr('abcdefg@naver.com', '@')+1)
+from dual;
+
+🔹 1단계: INSTR
+INSTR('abcdefg@naver.com', '@')
+
+
+앞에서 봤듯이:
+
+abcdefg@naver.com
+        ^
+        8번째
+
+
+👉 결과: 8
+
+🔹 2단계: + 1
+8 + 1 = 9
+
+
+👉 9번째 문자부터 시작
+
+🔹 3단계: SUBSTR
+SUBSTR('abcdefg@naver.com', 9)
+
+
+길이 생략됨 → 끝까지
+
+9번째 문자 = n
+
+🔹 잘리는 과정 (가로 버전)
+위치:  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17
+문자:  a  b  c  d  e  f  g  @  n  a  v  e  r  .  c  o  m
+                           ↑
+                         여기서 시작
+
+🔹 최종 결과
+naver.com
