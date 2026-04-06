@@ -15,8 +15,6 @@ function solution(n) {
         answer.push(arr);
     }
     
-
-    
     while(cnt <= n * n){
         answer[r][c] = cnt++;
         
@@ -32,12 +30,6 @@ function solution(n) {
         r = nr;
         c = nc;
     }
-    
-    
-    
-    console.log(answer)
-    
-    
     
     return answer;
 }
