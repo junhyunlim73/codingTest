@@ -1,10 +1,10 @@
 # [level 0] 문자열의 뒤의 n글자 - 181910 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/181910) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/181910?language=javascript) 
 
 ### 성능 요약
 
-메모리: 9.23 MB, 시간: 0.00 ms
+메모리: 32.9 MB, 시간: 0.04 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 11월 02일 13:15:48
+2026년 04월 14일 20:40:53
 
 ### 문제 설명
 
