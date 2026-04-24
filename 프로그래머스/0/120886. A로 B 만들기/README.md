@@ -1,10 +1,10 @@
 # [level 0] A로 B 만들기 - 120886 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120886) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120886?language=javascript) 
 
 ### 성능 요약
 
-메모리: 9.28 MB, 시간: 0.28 ms
+메모리: 33.5 MB, 시간: 0.61 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2026년 01월 24일 10:23:37
+2026년 04월 24일 18:29:43
 
 ### 문제 설명
 
